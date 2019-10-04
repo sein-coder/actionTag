@@ -6,12 +6,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body style="margin-bottom: 200px;">
 	<h1>기본 EL표현식 활용하기!</h1>
 	<%
 		String name = "유병승";
 		int su = 19;
 		int su2 = 40;	
+		
+		java.util.List<action.model.vo.Person> list = new java.util.ArrayList();
+		request.setAttribute("list", list);
+		list.add(new action.model.vo.Person("강보승",24,"남"));
+		list.add(new action.model.vo.Person("기영성",30,"남"));
+		
 		session.setAttribute("name", name);
 		//선언만이 아니라 scope에 따라 값을 set해줘야지만 el을 통해서 가져올 수 있다.
 		request.setAttribute("su", su);
@@ -35,5 +41,36 @@
 	<p>곱하기(기본) : ${su*su2 }</p>
 	<p>나머지 : ${su%su2}</p>
 	<p>나머지(mod) : ${ su mod su2 }</p>
+	
+	<h3>비교연산</h3>
+	<p>${su == su2 }</p>
+	<p>${su == 19 }</p>
+	<p>${su eq su2 }</p>
+	<p>${su > su2 }</p>
+	<p>${su < su2 }</p>
+	<p>gt : ${su gt su2 }</p>
+	<p>lt : ${su lt su2 }</p>
+	<p>!= : ${su != su2 }</p>
+	<p>ne(not equals) : ${su ne su2 }</p>
+	
+	<h3>논리연산</h3>
+	<p>${su ne su2 and name=="유병승"}</p>
+	<p>${su ne su2 or name!="유병승"}</p>
+	
+	<%-- JSTL => if문 for문 choose문 -> 진위여부판단 라이브러리를 추가해야한다.
+	<c:if test="${ not empty name }">
+		<p>출력해!!</p>
+	</c:if> --%>
+	
+	<p>list가 null인지 확인 : ${ not empty list }</p>
+	<p>list가 null인지 확인(size()함수 이용) : ${ list.size() > 0 }</p>
+	
+	<h3>EL로 리스트 접근하기</h3>
+	<p>${ list }</p>
+	<p>${ list.get(0) }</p>
+	<p>${ list.get(0)["name"] }</p>
+	생일 축하해!
+	
+	
 </body>
 </html>
